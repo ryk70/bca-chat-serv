@@ -1,3 +1,5 @@
+package main;
+
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.ServerSocket;
@@ -30,8 +32,8 @@ public class ChatServer {
 
                     // handle client business in another thread
                     pool.execute(new ChatServerSocketListener(socket, clientList));
-                } 
-                
+                }
+
                 // prevent exceptions from causing server from exiting.
                 catch (IOException ex) {
                     System.out.println(ex.getMessage());

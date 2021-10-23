@@ -1,3 +1,5 @@
+package main;
+
 public class MessageCtoS_Chat extends MessageCtoS_Join {
     public String msg;
 
@@ -5,5 +7,5 @@ public class MessageCtoS_Chat extends MessageCtoS_Join {
         super(msg);
         this.msg = msg;
     }
-    
+
 }

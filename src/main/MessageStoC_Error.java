@@ -1,5 +1,8 @@
-public class MessageStoC_Error extends Message{
+package main;
+
+public class MessageStoC_Error extends Message {
     public String userName;
+
     public MessageStoC_Error(String userName) {
         this.userName = userName;
     }
