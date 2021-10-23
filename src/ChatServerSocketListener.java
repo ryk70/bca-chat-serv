@@ -35,6 +35,38 @@ public class ChatServerSocketListener  implements Runnable {
         broadcast(new MessageStoC_Chat(client.getUserName(), m.msg), client);
     }
 
+    private void processPM(MessageCtoS_PM m){
+        System.out.println("PM received from " + client.getUserName() + " - sending to " + m.getToUser());
+        sendPM(new MessageStoC_PM(client.getUserName(), m.msg, m.getToUser()));
+    }
+
+    public void sendPM(MessageStoC_PM m){
+        try {
+            ClientConnectionData c = getCCD(m.getToUser());
+            System.out.println(client.getUserName() + " PMing " + m.getToUser() + ": " + m);
+            if(c == null) {
+                Message m2 = new MessageStoC_DNE(m.getToUser());
+                client.getOut().writeObject(m2);
+            }
+            else {
+                c.getOut().writeObject(m);
+                client.getOut().writeObject(new MessageStoC_PM_Response(m.getToUser(), m.msg));
+            }
+        }
+        catch (Exception ex) {
+            System.out.println("PM caught exception: " + ex);
+            ex.printStackTrace();
+        }
+    }
+
+    private ClientConnectionData getCCD(String toUser) {
+        for(ClientConnectionData c : clientList) {
+            if(c.getUserName().equals(toUser)) {
+                return c;
+            }
+        }
+        return null;
+    }
     /**
      * Broadcasts a message to all clients connected to the server.
      */
@@ -64,13 +96,16 @@ public class ChatServerSocketListener  implements Runnable {
 
             MessageCtoS_Join joinMessage = (MessageCtoS_Join)in.readObject();
             if(clientNamesList.size() != 0) {
-                while (clientNamesList.contains(joinMessage.userName)) {
-
-                            MessageStoC_Error m = new MessageStoC_Error(joinMessage.userName);
-                            System.out.println("Error: dup username");
-                            client.getOut().writeObject(m);
-                            joinMessage = (MessageCtoS_Join) in.readObject();
-
+                while (clientNamesList.contains(joinMessage.userName) || joinMessage.userName.contains(" ")) {
+                    MessageStoC_Error m = new MessageStoC_Error(joinMessage.userName);
+                    if(joinMessage.userName.contains(" ")) {
+                        System.out.println("Error: username contains space");
+                    }
+                    else if(clientNamesList.contains(joinMessage.userName)) {
+                        System.out.println("Error: dupe username");
+                    }
+                    client.getOut().writeObject(m);
+                    joinMessage = (MessageCtoS_Join) in.readObject();
                 }
             }
 
@@ -83,6 +118,9 @@ public class ChatServerSocketListener  implements Runnable {
                 Message msg = (Message) in.readObject();
                 if (msg instanceof MessageCtoS_Quit) {
                     break;
+                }
+                else if(msg instanceof MessageCtoS_PM) {
+                    processPM((MessageCtoS_PM) msg);
                 }
                 else if (msg instanceof MessageCtoS_Chat) {
                     processChatMessage((MessageCtoS_Chat) msg);

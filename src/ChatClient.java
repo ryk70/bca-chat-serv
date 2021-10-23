@@ -4,10 +4,7 @@ import sun.awt.windows.WPrinterJob;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ChatClient {
     private Socket socket;
@@ -43,13 +40,17 @@ public class ChatClient {
 
         String line = in.nextLine().trim();
         while (!line.toLowerCase().startsWith("/quit")) {
-            sendMessage(new MessageCtoS_Chat(line));
+            if(line.toLowerCase().startsWith("/pm")) {
+                String[] lineArr = line.split(" ");
+                sendMessage(new MessageCtoS_PM(line.substring(line.indexOf(lineArr[1])+lineArr[1].length()+1), lineArr[1]));
+            }
+            else
+                sendMessage(new MessageCtoS_Chat(line));
             line = in.nextLine().trim();
         }
         if(!line.toLowerCase().startsWith("/quit")) {
             sendMessage(new MessageCtoS_Quit());
         }
-
     }
 
     private void closeSockets() throws Exception {

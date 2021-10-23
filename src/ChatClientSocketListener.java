@@ -28,6 +28,16 @@ public class ChatClientSocketListener implements Runnable {
 
     private void processErrorMessage(MessageStoC_Error m) {System.out.println(m);}
 
+    private void processErrorMessage(MessageStoC_DNE m) {System.out.println(m);}
+
+    private void processPM(MessageStoC_PM m) {
+        System.out.println("FROM " + m.username + ": " + m.msg);
+    }
+
+    private void processPM_Response(MessageStoC_PM_Response m) {
+        System.out.println(m.toString());
+    }
+
     @Override
     public void run() {
         try {
@@ -37,6 +47,12 @@ public class ChatClientSocketListener implements Runnable {
                 if (msg instanceof MessageStoC_Welcome) {
                     processWelcomeMessage((MessageStoC_Welcome) msg);
                 }
+                else if (msg instanceof MessageStoC_PM) {
+                    processPM((MessageStoC_PM) msg);
+                }
+                else if (msg instanceof MessageStoC_PM_Response) {
+                    processPM_Response((MessageStoC_PM_Response) msg);
+                }
                 else if (msg instanceof MessageStoC_Chat) {
                     processChatMessage((MessageStoC_Chat) msg);
                 }
@@ -45,6 +61,9 @@ public class ChatClientSocketListener implements Runnable {
                 }
                 else if (msg instanceof MessageStoC_Error) {
                     processErrorMessage((MessageStoC_Error) msg);
+                }
+                else if (msg instanceof MessageStoC_DNE) {
+                    processErrorMessage((MessageStoC_DNE) msg);
                 }
                 else {
                     System.out.println("Unhandled message type: " + msg.getClass());

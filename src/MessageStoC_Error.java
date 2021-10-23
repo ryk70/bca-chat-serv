@@ -5,6 +5,6 @@ public class MessageStoC_Error extends Message{
     }
 
     public String toString() {
-        return String.format("\"%s\" is already taken. Please pick another username.", this.userName);
+        return String.format("\"%s\" is already taken or is illegal (has space). Please pick another username.", this.userName);
     }
 }
