@@ -1,4 +1,4 @@
-package main;
+package main.msgtypes;
 
 public class MessageCtoS_Join extends Message {
     public String userName;

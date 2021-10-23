@@ -1,4 +1,7 @@
-package main;
+package main.chat_client;
+
+import main.ANSI_colors;
+import main.msgtypes.*;
 
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
@@ -14,7 +17,7 @@ public class ChatClientSocketListener implements Runnable {
     }
 
     private void processChatMessage(MessageStoC_Chat m) {
-        System.out.println(m.userName + ": " + m.msg);
+        System.out.println(ANSI_colors.RED + m.userName + ANSI_colors.RESET + ": " + m.msg);
     }
 
     private void processWelcomeMessage(MessageStoC_Welcome m) {

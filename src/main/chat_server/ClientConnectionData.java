@@ -1,4 +1,4 @@
-package main;
+package main.chat_server;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

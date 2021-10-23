@@ -1,4 +1,4 @@
-package main;
+package main.msgtypes;
 
 public class MessageStoC_PM extends MessageStoC_Chat {
     public String username;

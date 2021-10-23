@@ -1,5 +1,8 @@
-package main;// import com.sun.security.ntlm.Client;
+package main.chat_client;// import com.sun.security.ntlm.Client;
 // import sun.awt.windows.WPrinterJob;
+
+import main.ANSI_colors;
+import main.msgtypes.*;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -61,6 +64,8 @@ public class ChatClient {
             if (line.toLowerCase().startsWith("/pm")) {
                 String[] lineArr = line.split(" ");
                 sendMessage(new MessageCtoS_PM(line.substring(line.indexOf(lineArr[1]) + lineArr[1].length() + 1), lineArr[1]));
+            } else if (line.toLowerCase().startsWith("/bold") || line.toLowerCase().startsWith("/b")) {
+                sendMessage(new MessageCtoS_Chat(ANSI_colors.WHITE_BOLD + line));
             } else
                 sendMessage(new MessageCtoS_Chat(line));
             line = in.nextLine().trim();

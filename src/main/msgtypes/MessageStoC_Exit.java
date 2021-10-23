@@ -1,4 +1,4 @@
-package main;
+package main.msgtypes;
 
 public class MessageStoC_Exit extends Message {
     public String userName;

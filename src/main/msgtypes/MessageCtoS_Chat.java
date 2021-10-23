@@ -1,4 +1,4 @@
-package main;
+package main.msgtypes;
 
 public class MessageCtoS_Chat extends MessageCtoS_Join {
     public String msg;

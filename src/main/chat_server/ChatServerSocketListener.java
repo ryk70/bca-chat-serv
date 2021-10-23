@@ -1,4 +1,6 @@
-package main;
+package main.chat_server;
+
+import main.msgtypes.*;
 
 import java.io.*;
 import java.net.Socket;

@@ -1,4 +1,4 @@
-package main;
+package main.msgtypes;
 
 public class MessageCtoS_PM extends MessageCtoS_Chat {
     private final String toUser;

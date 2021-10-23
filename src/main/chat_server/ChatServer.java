@@ -1,4 +1,4 @@
-package main;
+package main.chat_server;
 
 import java.io.IOException;
 import java.net.Inet4Address;

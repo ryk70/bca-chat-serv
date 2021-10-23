@@ -1,4 +1,4 @@
-package main;
+package main.msgtypes;
 
 public class MessageStoC_PM_Response extends Message {
     private final String toUser;

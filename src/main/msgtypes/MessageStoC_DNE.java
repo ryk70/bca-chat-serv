@@ -1,4 +1,4 @@
-package main;
+package main.msgtypes;
 
 public class MessageStoC_DNE extends Message {
     private final String toUser;
@@ -8,6 +8,6 @@ public class MessageStoC_DNE extends Message {
     }
 
     public String toString() {
-        return this.toUser + "does not exist. main.Message was not sent.";
+        return this.toUser + "does not exist. main.msgtypes.Message was not sent.";
     }
 }

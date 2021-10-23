@@ -1,4 +1,4 @@
-package main;
+package main.msgtypes;
 
 public class MessageStoC_Chat extends Message {
     public String userName;
@@ -10,6 +10,6 @@ public class MessageStoC_Chat extends Message {
     }
 
     public String toString() {
-        return "Chat main.Message from " + userName + ": " + msg;
+        return "Chat main.msgtypes.Message from " + userName + ": " + msg;
     }
 }
