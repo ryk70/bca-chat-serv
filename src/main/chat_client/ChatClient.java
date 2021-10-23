@@ -63,9 +63,17 @@ public class ChatClient {
         while (!line.toLowerCase().startsWith("/quit")) {
             if (line.toLowerCase().startsWith("/pm")) {
                 String[] lineArr = line.split(" ");
-                sendMessage(new MessageCtoS_PM(line.substring(line.indexOf(lineArr[1]) + lineArr[1].length() + 1), lineArr[1]));
-            } else if (line.toLowerCase().startsWith("/bold") || line.toLowerCase().startsWith("/b")) {
-                sendMessage(new MessageCtoS_Chat(ANSI_colors.WHITE_BOLD + line));
+                sendMessage(new MessageCtoS_PM(line.substring(line.indexOf(lineArr[1])
+                        + lineArr[1].length() + 1), lineArr[1]));
+            } else if (line.toLowerCase().startsWith("/hl")) {
+                sendMessage(new MessageCtoS_Chat(
+                        ANSI_colors.RED_BACKGROUND_BRIGHT
+                                + line.substring(4)
+                                + ANSI_colors.RESET));
+            } else if (line.toLowerCase().startsWith("/help")) {
+                System.out.print("/quit : Terminate connection with server\n" +
+                        "/pm {username} : Send a private message to the given user\n" +
+                        "/hl {text} : Highlight your message\n");
             } else
                 sendMessage(new MessageCtoS_Chat(line));
             line = in.nextLine().trim();
